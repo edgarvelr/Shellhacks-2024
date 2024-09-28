@@ -5,10 +5,18 @@ import { SignedOut, SignedIn } from "@clerk/nextjs";
 
 export default function Home() {
   return (
+  <Box sx={{
+    position: 'relative',
+    width: '100vw',
+    height: '100vh',
+    overflow: 'hidden',
+    background: 'linear-gradient(to bottom, #000046, #000000)',
+  }}
+  >
     <AppBar position="static">
     <Toolbar>
       <Typography variant="h6" style={{flexGrow: 1}}>
-        Flashcard SaaS
+        Panther Pal
       </Typography>
       <SignedOut>
         <Button color="inherit" href="/sign-in">Login</Button>
@@ -19,6 +27,7 @@ export default function Home() {
       </SignedIn>
     </Toolbar>
   </AppBar>
+  </Box>
 
   );
 }

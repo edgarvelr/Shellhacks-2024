@@ -10,6 +10,8 @@ export default function SignUpPage(){
     alignItems: 'center',
     width: '100vw',
     height: '100vh',
+    background: 'linear-gradient(to bottom, #000046, #000000)',
+    
     }}
     maxWidth="100vw">
         <Box
