@@ -91,7 +91,7 @@ export default function Home() {
         <Typography variant="h8" gutterBottom>
           You will be able to create flashcards based off of the topic you input. Practice your topic with ease!
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" href="/generate">
           Select
         </Button>
       </Box>
