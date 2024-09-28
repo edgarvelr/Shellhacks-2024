@@ -29,7 +29,31 @@ export default function Home(){
                 'Content-Type': 'applicantion /json',
 
             },
+            body: JSON.stringify([...messages, {role: 'user' , content: message}]),
+        }).then(async(res) =>{
+            const reader = res.body.getReader()
+            const decoder = new TextDecoder()
+
+            let result = ''
+
+            return reader.then(function processText({done , value}){
+                if(done){
+                    return result
+                }
+                const text = decoder.decode(value || new Unit8Array(), {stream: true})
+                setMessages((messages) => {
+                    let lastMessage = messages[messages.length - 1]
+                    let otherMessages = message.slice(0, messages.lenth - 1)
+                    return[
+                        ...otherMessages,
+                        {...lastMessage, content: lastMessage.content + text},
+                        
+                    ]
+                })
+            })
         })
+        
+        }
 
     }
 

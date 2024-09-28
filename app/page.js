@@ -1,7 +1,7 @@
 'use client'
 
-import { Box, Typography, AppBar, Toolbar, Button, UserButton, } from "@mui/material";
-import { SignedOut, SignedIn } from "@clerk/nextjs";
+import { Box, Typography, AppBar, Toolbar, Button, IconButton } from "@mui/material";
+import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
 
 export default function Home() {
   return (
@@ -13,20 +13,48 @@ export default function Home() {
     background: 'linear-gradient(to bottom, #000046, #000000)',
   }}
   >
-    <AppBar position="static">
-    <Toolbar>
-      <Typography variant="h6" style={{flexGrow: 1}}>
-        Panther Pal
-      </Typography>
-      <SignedOut>
-        <Button color="inherit" href="/sign-in">Login</Button>
-        <Button color="inherit" href="/sign-up">Sign Up</Button>
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-    </Toolbar>
-  </AppBar>
+    <Toolbar position="fixed">
+        <Typography variant="h6" style={{ flexGrow: 1 }} />
+        <SignedOut>
+          <Button sx={{ color: 'white' }} href="/sign-in">
+            {" "}
+            Login{" "}
+          </Button>
+          <Button sx={{ color: 'white' }} href="/sign-up">
+            {" "}
+            Signup{" "}
+          </Button>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </Toolbar>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center", // Centers vertically
+          alignItems: "center", // Centers horizontally
+          height: "100vh", // Full viewport height
+          textAlign: "center",
+          paddingBottom: "150px", // Adjust according to AppBar heigh
+        }}
+      >
+        <Typography
+          variant="h2"
+          gutterBottom
+          color="white"
+        >
+          {" "}
+          <Typography>Panther Pal</Typography>
+        </Typography>{" "}
+        <Typography variant="h5" gutterBottom color="white">
+          <Typography
+          sx={{}}
+          >Your Personal Study Pal</Typography>
+        </Typography>
+      </Box>
   </Box>
 
   );
