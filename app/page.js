@@ -1,11 +1,10 @@
 'use client'
 
 import { Box, Typography, AppBar, Toolbar, Button, UserButton, } from "@mui/material";
-import { SignedOut, SignedIn, ClerkProvider } from "@clerk/nextjs";
+import { SignedOut, SignedIn } from "@clerk/nextjs";
 
 export default function Home() {
   return (
-    <ClerkProvider>
     <AppBar position="static">
     <Toolbar>
       <Typography variant="h6" style={{flexGrow: 1}}>
@@ -20,6 +19,6 @@ export default function Home() {
       </SignedIn>
     </Toolbar>
   </AppBar>
-  </ClerkProvider>
+
   );
 }
