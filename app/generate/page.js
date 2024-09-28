@@ -1,6 +1,16 @@
 "use client";
-
-import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import {
+  doc,
+  collection,
+  setDoc,
+  getDoc,
+  writeBatch,
+  getFirestore
+} from "firebase/firestore";
 import {
   Toolbar,
   Typography,
@@ -18,59 +28,54 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  Container,
-  Grid,
+  Container
 } from "@mui/material";
-
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import { db } from "@/firebase";
+
 
 export default function Generate() {
-  const [text, setText] = useState("");
+  const { isLoaded, isSignedIn, user } = useUser();
   const [flashcards, setFlashcards] = useState([]);
-  const [setName, setSetName] = useState("");
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const handleOpenDialog = () => setDialogOpen(true);
-  const handleCloseDialog = () => setDialogOpen(false);
   const [flipped, setFlipped] = useState([]);
+  const [text, setText] = useState("");
+  const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
 
-  const saveFlashcards = async () => {
-    if (!setName.trim()) {
-      alert("Please enter a name for your flashcard set.");
+  const SaveFlashcards = async () => {
+    if (!name) {
+      alert("Please enter a name");
       return;
     }
 
+    const batch = writeBatch(db);
+    const userDocRef = doc(collection(db, "users"), user.id);
+    const docSnap = await getDoc(userDocRef);
 
-    try {
-      const userDocRef = doc(collection(db, "users"), user.id);
-      const userDocSnap = await getDoc(userDocRef);
-
-      const batch = writeBatch(db);
-
-      if (userDocSnap.exists()) {
-        const userData = userDocSnap.data();
-        const updatedSets = [
-          ...(userData.flashcardSets || []),
-          { name: setName },
-        ];
-        batch.update(userDocRef, { flashcardSets: updatedSets });
+    if (docSnap.exists()) {
+      const collections = docSnap.data().flashcards || [];
+      if (collections.find((f) => f.name === name)) {
+        alert("Flashcard collection with the same name already exists");
+        return;
       } else {
-        batch.set(userDocRef, { flashcardSets: [{ name: setName }] });
+        collections.push({ name });
+        batch.set(userDocRef, { flashcards: collections }, { merge: true });
       }
-
-      const setDocRef = doc(collection(userDocRef, "flashcardSets"), setName);
-      batch.set(setDocRef, { flashcards });
-
-      await batch.commit();
-
-      alert("Flashcards saved successfully!");
-      handleCloseDialog();
-      setSetName("");
-    } catch (error) {
-      console.error("Error saving flashcards:", error);
-      alert("An error occurred while saving flashcards. Please try again.");
+    } else {
+      batch.set(userDocRef, { flashcards: [{ name }] });
     }
+
+    const colRef = collection(userDocRef, name);
+    flashcards.forEach((flashcard) => {
+      const cardDocRef = doc(colRef);
+      batch.set(cardDocRef, flashcard);
+    });
+
+    await batch.commit();
+    handleClose();
+    router.push("/flashcards");
   };
 
   const handleSubmit = async () => {
@@ -122,7 +127,9 @@ export default function Generate() {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container 
+    maxWidth="md"
+    >
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Generate Flashcards
@@ -249,27 +256,26 @@ export default function Generate() {
         </Box>
       )}
 
-      <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-        <DialogTitle>Save Flashcard Set</DialogTitle>
+<Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Save Flashcards</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please enter a name for your flashcard set.
+            Please enter a name for your flashcards collections
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
-            label="Set Name"
+            label="Collection Name"
             type="text"
             fullWidth
-            value={setName}
-            onChange={(e) => setSetName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            variant="outlined"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={saveFlashcards} color="primary">
-            Save
-          </Button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={SaveFlashcards}>Save</Button>
         </DialogActions>
       </Dialog>
     </Container>

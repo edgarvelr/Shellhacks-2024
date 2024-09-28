@@ -1,4 +1,27 @@
-export default function Flashcard() {
+"use client";
+import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import {
+  Box,
+  Drawer,
+  CardActionArea,
+  Card,
+  Grid,
+  CardContent,
+  Typography,
+  Toolbar,
+  IconButton,
+  Button,
+  Container
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { styled } from "@mui/system";
+import { db } from "@/firebase";
+
+export default function Flashcards() {
     const { isLoaded, isSignedIn, user } = useUser()
     const [flashcards, setFlashcards] = useState([])
     const router = useRouter()

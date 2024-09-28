@@ -8,7 +8,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! My name is Aqua. How can I help you today?",
+      content: "Hi I am Fiu's Studying assistant",
     },
   ])
   const [message, setMessage] = useState('')
@@ -99,7 +99,7 @@ export default function Home() {
       justifyContent="center"
       alignItems="center"
       sx={{
-        backgroundImage: 'url(/water-background.jpg)', // Add your water background image
+        backgroundImage: "url(/images/fiu.jpg)",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -111,10 +111,10 @@ export default function Home() {
         border="1px solid rgba(255, 255, 255, 0.3)"
         p={2}
         spacing={3}
-        bgcolor="rgba(255, 255, 255, 0.7)"
+        bgcolor="transparent"
         borderRadius={4}
         sx={{
-          backdropFilter: 'blur(10px)',
+          backdropFilter: 'blur(3px)',
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
         }}
       >
@@ -134,12 +134,9 @@ export default function Home() {
               }
             >
               <Box
-                bgcolor={
-                  message.role === 'assistant'
-                    ? 'primary.main'
-                    : 'secondary.main'
-                }
-                color="white"
+                bgcolor="#002D72"  
+                color={message.role === 'assistant' ? '#B6862C' : '#B6862C'}                
+                color="#B6862C"
                 borderRadius={16}
                 p={3}
                 sx={{
@@ -162,20 +159,38 @@ export default function Home() {
             onKeyPress={handleKeyPress}
             disabled={isLoading}
             sx={{
-              '& .MuiInputBase-root': {
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-              },
-            }}
+            backgroundColor: '#002D72',  // Blue background for the input box
+            color: '#B6862C',            // Gold color for the input text
+            '& .MuiInputBase-root': {
+            backgroundColor: '#002D72',  // Ensure the input field background stays blue
+            color: '#B6862C',            // Gold text inside the input
+          },
+          '& .MuiInputLabel-root': {
+          color: '#B6862C',            // Gold color for the label
+          },
+        }}
+              
           />
-          <Button variant="contained" onClick={sendMessage} disabled={isLoading}>
+          <Button variant="contained" onClick={sendMessage} disabled={isLoading}
+
+          sx={{
+          backgroundColor: '#002D72', // Blue color
+          color: '#B6862C',           // Gold color for the text
+          '&:hover': {
+          backgroundColor: '#B6862C', // Slightly darker blue on hover (optional)
+  },
+}}
+          
+          >
+            
             {isLoading ? 'Sending...' : 'Send'}
+            
           </Button>
         </Stack>
       </Stack>
     </Box>
-  )
-
-          }
+ )
+}
 
 
   
