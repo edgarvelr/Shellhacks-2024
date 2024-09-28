@@ -8,7 +8,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi I am Fiu's Studying assistant",
+      content: "Hello! I am FIU's very own studying tool! How can I help you today?",
     },
   ])
   const [message, setMessage] = useState('')
@@ -136,7 +136,6 @@ export default function Home() {
               <Box
                 bgcolor="#002D72"  
                 color={message.role === 'assistant' ? '#B6862C' : '#B6862C'}                
-                color="#B6862C"
                 borderRadius={16}
                 p={3}
                 sx={{

@@ -173,25 +173,6 @@ export default function Flashcard() {
             </IconButton>
           </Box>
           <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleOpen}
-              fullWidth
-              sx={{
-                borderRadius: 2,
-                py: 1.5,
-                fontWeight: "bold",
-                backgroundImage: "linear-gradient(to right, #f0f0f0, #91bbff)",
-                color: "#1d1d6b",
-                "&:hover": {
-                  backgroundImage:
-                    "linear-gradient(to right, #f0f0f0, #6161fa)",
-                },
-              }}
-            >
-              Save
-            </Button>
           </Box>
         </Box>
       )}

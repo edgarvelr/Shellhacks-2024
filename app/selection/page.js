@@ -92,7 +92,7 @@ export default function Home() {
                 sx={{
                   my: 1,
                   backgroundColor: '#002D72',
-                  color: '##B6862C',
+                  color: '#B6862C',
                   '&:hover': {
                     backgroundColor: '#B6862C',
                     color:'#002D72'
@@ -107,7 +107,7 @@ export default function Home() {
                 fullWidth
                 variant="contained"
                 color="#B6862C"
-                href="/generate"
+                href="/chatbot"
                 sx={{
                   my: 1,
                   backgroundColor: ' #002D72',
@@ -118,7 +118,7 @@ export default function Home() {
                   },
                 }}
               >
-                Generate
+                Chatbot
               </Button>
             </Box>
             <Box sx={{ my: 1 }}>
@@ -126,6 +126,7 @@ export default function Home() {
                 fullWidth
                 variant="contained"
                 color="#B6862C"
+                href ="/generate"
                 sx={{
                   my: 1,
                   backgroundColor: '#002D72',
