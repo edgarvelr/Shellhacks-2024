@@ -1,7 +1,48 @@
-'use client'
+ 'use client'
 
 import { Box, Typography, AppBar, Toolbar, Button, IconButton } from "@mui/material";
 import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
+import { styled } from '@mui/system';
+
+
+
+const HeaderGradientText = styled(Typography)(({ theme }) => ({
+  background: 'linear-gradient(to right, #f0f0f0, #5a66d6)', // Gradient colors
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  fontFamily: '',
+  fontWeight: 'bold',
+  fontSize: '6rem',
+  animation: `shimmer 2s linear infinite, fadeIn 2s ease-in-out`,
+'@keyframes shimmer': {
+  '0%': {
+    backgroundPosition: '-200% 0',
+  },
+  '100%': {
+    backgroundPosition: '200% 0',
+  },
+},
+'@keyframes fadeIn': {
+  '0%': {
+    opacity: 0,
+  },
+  '100%': {
+    opacity: 1,
+  },
+},
+  [theme.breakpoints.down('lg')]: {
+    fontSize: '5rem', // Size for large screens
+  },
+  [theme.breakpoints.down('md')]: {
+    fontSize: '4rem', // Size for medium screens
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '3rem', // Size for small screens
+  },
+  [theme.breakpoints.down('xs')]: {
+    fontSize: '2rem', // Size for extra small screens
+  },
+}));
 
 export default function Home() {
   return (
@@ -10,7 +51,7 @@ export default function Home() {
     width: '100vw',
     height: '100vh',
     overflow: 'hidden',
-    background: 'linear-gradient(to bottom, #000046, #000000)',
+    backgroundImage: 'url(/images/fiu.jpg)'
   }}
   >
     <Toolbar position="fixed">
@@ -47,13 +88,8 @@ export default function Home() {
           color="white"
         >
           {" "}
-          <Typography>Panther Pal</Typography>
+          <HeaderGradientText>PantherPal</HeaderGradientText>
         </Typography>{" "}
-        <Typography variant="h5" gutterBottom color="white">
-          <Typography
-          sx={{}}
-          >Your Personal Study Pal</Typography>
-        </Typography>
       </Box>
   </Box>
 

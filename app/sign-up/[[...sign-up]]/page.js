@@ -26,6 +26,7 @@ export default function SignUpPage(){
             <SignUp />
 
         </Box>
-    </Box>  
+    </Box>
+    
 )
 }
