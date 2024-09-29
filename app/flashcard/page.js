@@ -226,6 +226,25 @@ export default function Flashcard() {
                 href="/generate"
                 sx={{
                   my: 1,
+                  backgroundColor: " #002D72",
+                  color: "#B6862C",
+                  "&:hover": {
+                    backgroundColor: "#B6862C",
+                    color: "#002D72",
+                  },
+                }}
+              >
+                Generate
+              </Button>
+            </Box>
+            <Box sx={{ my: 1 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="#B6862C"
+                href="/flashcards"
+                sx={{
+                  my: 1,
                   backgroundColor: "#002D72",
                   color: "#B6862C",
                   "&:hover": {
