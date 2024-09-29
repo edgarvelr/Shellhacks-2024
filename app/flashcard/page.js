@@ -14,9 +14,6 @@ import {
   Grid,
   IconButton,
   Drawer,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Paper,
   TextField,
   Dialog,
@@ -43,6 +40,12 @@ export default function Flashcard() {
   const search = searchParams.get("id");
 
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = (open) => () => {
+    setDrawerOpen(open);
+  };
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
@@ -85,8 +88,156 @@ export default function Flashcard() {
       [id]: !prev[id],
     }));
   };
+  
   return (
-    <Container maxWidth="md">
+    <Box sx={{
+      position: 'relative',
+      width: '100vw',
+      height: '100vh',
+      overflow: 'hidden',
+    }}
+    >
+  
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              backgroundImage: 'url(/images/fiu.jpg)', // Image path
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: 0.5, // Adjust the opacity of the background image
+              zIndex: -1, // Ensures the background is behind the content
+            },
+          }}
+        />
+
+<Toolbar // Taskbar with different pages
+        sx={{
+          position: "fixed",
+          width: "100%",
+          top: 0,
+          left: 0,
+          zIndex: 1200,
+        }}
+      >
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={toggleDrawer(true)}
+        >
+          <MenuIcon sx={{ color: "white" }} />
+        </IconButton>
+        <Typography variant="h6" style={{ flexGrow: 1 }} />
+        <SignedOut>
+          <Button sx={{ color: "white" }} href="/sign-in">
+            Login
+          </Button>
+          <Button sx={{ color: "white" }} href="/sign-up">
+            Signup
+          </Button>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </Toolbar>
+
+      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+        <Box
+          sx={{
+            width: 250,
+            background: "#261482", // Custom background color
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* Header inside Drawer */}
+          <Box
+            sx={{
+              p: 2,
+              textAlign: "center",
+              backgroundColor: "transparent",
+              color: "#fff",
+            }}
+          >
+            <Typography variant="h6">PantherPal</Typography>
+          </Box>
+
+          {/* Buttons for Navigation */}
+          <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ my: 1 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="#B6862C"
+                href="/"
+                sx={{
+                  my: 1,
+                  backgroundColor: "#002D72",
+                  color: "#B6862C",
+                  "&:hover": {
+                    backgroundColor: "#B6862C",
+                    color: "#002D72",
+                  },
+                }}
+              >
+                Home
+              </Button>
+            </Box>
+            <Box sx={{ my: 1 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="#B6862C"
+                href="/chatbot"
+                sx={{
+                  my: 1,
+                  backgroundColor: " #002D72",
+                  color: "#B6862C",
+                  "&:hover": {
+                    backgroundColor: "#B6862C",
+                    color: "#002D72",
+                  },
+                }}
+              >
+                chatbot
+              </Button>
+            </Box>
+            <Box sx={{ my: 1 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="#B6862C"
+                href="/generate"
+                sx={{
+                  my: 1,
+                  backgroundColor: "#002D72",
+                  color: "#B6862C",
+                  "&:hover": {
+                    backgroundColor: "#B6862C",
+                    color: "#002D72",
+                  },
+                }}
+              >
+                Flashcards
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </Drawer>
+
       {flashcards.length > 0 && (
         <Box
           sx={{
@@ -98,8 +249,8 @@ export default function Flashcard() {
             mb: "8px",
           }}
         >
-          <Typography variant="h5" align="center" sx={{ mb: 2 }}>
-            Flashcards Preview
+          <Typography variant="h3" align="center" sx={{ mb: 17 }}>
+            Preview
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <IconButton onClick={handlePrev} sx={{ color: "white" }}>
@@ -176,6 +327,6 @@ export default function Flashcard() {
           </Box>
         </Box>
       )}
-    </Container>
+    </Box>
   );
 }
