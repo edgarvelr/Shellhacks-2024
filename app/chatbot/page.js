@@ -4,6 +4,7 @@ import { Box, Button, Stack, TextField, Toolbar, IconButton, Typography, Drawer}
 import { useState, useEffect, useRef } from 'react'
 import MenuIcon from "@mui/icons-material/Menu";
 import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
+import { styled } from "@mui/system";
 
 
 
@@ -97,6 +98,26 @@ export default function Home() {
     scrollToBottom()
   }, [messages])
 
+  const SubGradientText = styled(Typography)(({ theme }) => ({
+    background: "linear-gradient(to bottom, #f0f0f0, #002D72)", // Gradient colors
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    fontFamily: "",
+    fontSize: "2rem",
+    [theme.breakpoints.down("lg")]: {
+      fontSize: "1rem", // Size for large screens
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "1rem", // Size for medium screens
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem", // Size for small screens
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "1.5rem", // Size for extra small screens
+    },
+  }));
+
   
   return (
     <Box
@@ -147,7 +168,7 @@ export default function Home() {
         <Box
           sx={{
             width: 250,
-            background: "#261482", // Custom background color
+            background: "linear-gradient(to top, #B6862C, #002D72)", // Custom background color
             height: "100%",
             display: "flex",
             flexDirection: "column",
@@ -163,7 +184,7 @@ export default function Home() {
               color: "#fff",
             }}
           >
-            <Typography variant="h6">PantherPal</Typography>
+            <Typography variant="h6"><SubGradientText>PantherPal</SubGradientText></Typography>
           </Box>
 
           {/* Buttons for Navigation */}

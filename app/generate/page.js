@@ -33,6 +33,8 @@ import {
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { db } from "@/firebase";
 import MenuIcon from "@mui/icons-material/Menu";
+import { styled } from "@mui/system";
+
 
 
 export default function Generate() {
@@ -139,6 +141,25 @@ export default function Generate() {
   const handleClose = () => {
     setOpen(false);
   };
+  const SubGradientText = styled(Typography)(({ theme }) => ({
+    background: "linear-gradient(to bottom, #f0f0f0, #002D72)", // Gradient colors
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    fontFamily: "",
+    fontSize: "2rem",
+    [theme.breakpoints.down("lg")]: {
+      fontSize: "1rem", // Size for large screens
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "1rem", // Size for medium screens
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem", // Size for small screens
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "1.5rem", // Size for extra small screens
+    },
+  }));
 
   return (
     <Box sx={{
@@ -207,7 +228,7 @@ export default function Generate() {
         <Box
           sx={{
             width: 250,
-            background: "#261482", // Custom background color
+            background: "linear-gradient(to top, #B6862C, #002D72)", // Custom background color
             height: "100%",
             display: "flex",
             flexDirection: "column",
@@ -223,7 +244,7 @@ export default function Generate() {
               color: "#fff",
             }}
           >
-            <Typography variant="h6">PantherPal</Typography>
+            <Typography variant="h6"><SubGradientText>PantherPal</SubGradientText></Typography>
           </Box>
 
           {/* Buttons for Navigation */}
