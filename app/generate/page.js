@@ -136,17 +136,36 @@ export default function Generate() {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        backgroundImage: "url(/images/fiu.jpg)", // Image path
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+    <Box sx={{
+      position: 'relative',
+      width: '100vw',
+      height: '100vh',
+      overflow: 'hidden',
+    }}
     >
+  
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              backgroundImage: 'url(/images/fiu.jpg)', // Image path
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: 0.5, // Adjust the opacity of the background image
+              zIndex: -1, // Ensures the background is behind the content
+            },
+          }}
+        />
       <Toolbar
         sx={{
           position: "fixed",
@@ -266,10 +285,11 @@ export default function Generate() {
       <Container maxWidth="md">
         <Box sx={{ my: 4, textAlign: "center" }}>
           <Typography
-            variant="h4"
+            variant="h3"
             component="h1"
             gutterBottom
             sx={{ color: "#ffffff" }}
+
           >
             Generate Flashcards
           </Typography>

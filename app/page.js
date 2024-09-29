@@ -10,26 +10,26 @@ const HeaderGradientText = styled(Typography)(({ theme }) => ({
   background: 'linear-gradient(to right, #f0f0f0, #5a66d6)', // Gradient colors
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
-  fontFamily: '',
+  fontFamily: 'Arial, sans-serif',
   fontWeight: 'bold',
   fontSize: '6rem',
   animation: `shimmer 2s linear infinite, fadeIn 2s ease-in-out`,
-'@keyframes shimmer': {
-  '0%': {
-    backgroundPosition: '-200% 0',
+  '@keyframes shimmer': {
+    '0%': {
+      backgroundPosition: '-200% 0',
+    },
+    '100%': {
+      backgroundPosition: '200% 0',
+    },
   },
-  '100%': {
-    backgroundPosition: '200% 0',
+  '@keyframes fadeIn': {
+    '0%': {
+      opacity: 0,
+    },
+    '100%': {
+      opacity: 1,
+    },
   },
-},
-'@keyframes fadeIn': {
-  '0%': {
-    opacity: 0,
-  },
-  '100%': {
-    opacity: 1,
-  },
-},
   [theme.breakpoints.down('lg')]: {
     fontSize: '5rem', // Size for large screens
   },

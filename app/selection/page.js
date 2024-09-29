@@ -27,6 +27,35 @@ export default function Home() {
     router.push(path); // Navigate to the selected page
   };
 
+  const FeatureCard = ({ title, description, link }) => (
+    <Box
+      sx={{
+        width: 280,
+        height: 280,
+        backgroundColor: 'transparent',
+        boxShadow: 3,
+        borderRadius: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        textAlign: 'center',
+        p: 3,
+        transition: 'transform 0.3s ease-in-out',
+        '&:hover': {
+        transform: 'scale(1.05)',
+        },
+        backdropFilter: "blur(3px)",
+      }}
+    >
+      <Typography variant="h4" gutterBottom>{title}</Typography>
+      <Typography variant="body1">{description}</Typography>
+      <Button variant="contained" color="primary" href={link} sx={{ mt: 2 }}>
+        Select
+      </Button>
+    </Box>
+  );
+
 
   return (
     <Box
@@ -166,35 +195,13 @@ export default function Home() {
         }}
       />
 
-      <Box
-        sx={{
-          width: "250px", // Set width for each box
-          height: "250px", // Set height for each box
-          backgroundColor: "transparent", // Transparent white
-          boxShadow: "0 4px 15px rgba(0, 0, 0, 1)", // Shadow effect
-          borderRadius: "10px", // Rounded corners
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-          backdropFilter: 'blur(3px)',
-        }}
-      >
-        <Typography variant="h5" gutterBottom>
-          Chatbot
-        </Typography>
-        <Typography variant="h8" gutterBottom>
-          This chatbot will answer any question you need. Just input your
-          question and you will be met with your answer!
-        </Typography>
 
-        <Button variant="contained" color="primary" href="/chatbot">
-          Select
-        </Button>
-      </Box>
+      <FeatureCard 
+      title = "Chatbot" 
+      description = "Get answers to any question you need. Just input your question and receive an instant response!"
+      link = '/chatbot'/>
 
-      <Box
+      {/* <Box
         sx={{
           width: "250px", // Set width for each box
           height: "250px", // Set height for each box
@@ -218,7 +225,14 @@ export default function Home() {
         <Button variant="contained" color="primary" href="/generate">
           Select
         </Button>
-      </Box>
+      </Box> */}
+
+    <FeatureCard 
+      title = "Flashcards" 
+      description = "Create flashcards based on your chosen topic. Practice and reinforce your knowledge with ease!"
+      link = '/generate'/>
+
+
     </Box>
   );
 }
