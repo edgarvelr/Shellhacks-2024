@@ -1,7 +1,10 @@
 'use client'
 
-import { Box, Button, Stack, TextField } from '@mui/material'
+import { Box, Button, Stack, TextField, Toolbar, IconButton, Typography, Drawer} from '@mui/material'
 import { useState, useEffect, useRef } from 'react'
+import MenuIcon from "@mui/icons-material/Menu";
+import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
+
 
 
 export default function Home() {
@@ -13,6 +16,11 @@ export default function Home() {
   ])
   const [message, setMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = (open) => () => {
+    setDrawerOpen(open);
+  };
 
   const sendMessage = async () => {
     if (!message.trim()) return;
@@ -104,6 +112,141 @@ export default function Home() {
         backgroundPosition: 'center',
       }}
     >
+      <Toolbar // Taskbar with different pages
+        sx={{
+          position: "fixed",
+          width: "100%",
+          top: 0,
+          left: 0,
+          zIndex: 1200,
+        }}
+      >
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={toggleDrawer(true)}
+        >
+          <MenuIcon sx={{ color: "white" }} />
+        </IconButton>
+        <Typography variant="h6" style={{ flexGrow: 1 }} />
+        <SignedOut>
+          <Button sx={{ color: "white" }} href="/sign-in">
+            Login
+          </Button>
+          <Button sx={{ color: "white" }} href="/sign-up">
+            Signup
+          </Button>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </Toolbar>
+
+      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+        <Box
+          sx={{
+            width: 250,
+            background: "#261482", // Custom background color
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* Header inside Drawer */}
+          <Box
+            sx={{
+              p: 2,
+              textAlign: "center",
+              backgroundColor: "transparent",
+              color: "#fff",
+            }}
+          >
+            <Typography variant="h6">PantherPal</Typography>
+          </Box>
+
+          {/* Buttons for Navigation */}
+          <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ my: 1 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="#B6862C"
+                href="/"
+                sx={{
+                  my: 1,
+                  backgroundColor: "#002D72",
+                  color: "#B6862C",
+                  "&:hover": {
+                    backgroundColor: "#B6862C",
+                    color: "#002D72",
+                  },
+                }}
+              >
+                Home
+              </Button>
+            </Box>
+            <Box sx={{ my: 1 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="#B6862C"
+                href="/chatbot"
+                sx={{
+                  my: 1,
+                  backgroundColor: " #002D72",
+                  color: "#B6862C",
+                  "&:hover": {
+                    backgroundColor: "#B6862C",
+                    color: "#002D72",
+                  },
+                }}
+              >
+                chatbot
+              </Button>
+            </Box>
+            <Box sx={{ my: 1 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="#B6862C"
+                href="/generate"
+                sx={{
+                  my: 1,
+                  backgroundColor: " #002D72",
+                  color: "#B6862C",
+                  "&:hover": {
+                    backgroundColor: "#B6862C",
+                    color: "#002D72",
+                  },
+                }}
+              >
+                Generate
+              </Button>
+            </Box>
+            <Box sx={{ my: 1 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="#B6862C"
+                href="/flashcards"
+                sx={{
+                  my: 1,
+                  backgroundColor: "#002D72",
+                  color: "#B6862C",
+                  "&:hover": {
+                    backgroundColor: "#B6862C",
+                    color: "#002D72",
+                  },
+                }}
+              >
+                Flashcards
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </Drawer>
       <Stack
         direction={'column'}
         width="500px"

@@ -1,33 +1,38 @@
-import { SignIn } from "@clerk/nextjs"
-import { AppBar, Container, Toolbar, Typography, Button, Link, Box} from "@mui/material"
+import { SignIn } from "@clerk/nextjs";
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  Typography,
+  Button,
+  Link,
+  Box,
+} from "@mui/material";
 
-export default function SignUpPage(){
-    return (
-    <Box 
-    sx={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100vw',
-    height: '100vh',
-    background: 'linear-gradient(to bottom, #000046, #000000)',
-    }}
-    maxWidth="100vw">
-        <Box
-        display = "flex"
-        flexDirection = "column"
-        alignItems = "center"
-        justifyContent = "center"
-        >
-            <Typography
-            variant = "h4"
-            gutterBottom>
-                 Sign In
-            </Typography>
-            <SignIn />
-
-        </Box>
+export default function SignUpPage() {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        backgroundImage: "url(/images/fiu.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        padding: 3,
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        },
+      }}
+    >
+      <SignIn />
     </Box>
-    
-)
+  );
 }

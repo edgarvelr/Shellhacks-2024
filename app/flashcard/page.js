@@ -71,8 +71,11 @@ export default function Flashcard() {
     if (typeof window !== "undefined" && user) {
       async function getFlashcard() {
         if (!search) return;
-  
-        const colRef = collection(doc(collection(db, "users"), user.id), search);
+
+        const colRef = collection(
+          doc(collection(db, "users"), user.id),
+          search
+        );
         const docs = await getDocs(colRef);
         const flashcards = [];
         docs.forEach((doc) => {
@@ -80,7 +83,7 @@ export default function Flashcard() {
         });
         setFlashcards(flashcards);
       }
-  
+
       getFlashcard();
     }
   }, [search, user]);
@@ -91,40 +94,40 @@ export default function Flashcard() {
       [id]: !prev[id],
     }));
   };
-  
+
   return (
-    <Box sx={{
-      position: 'relative',
-      width: '100vw',
-      height: '100vh',
-      overflow: 'hidden',
-    }}
+    <Box
+      sx={{
+        position: "relative",
+        width: "100vw",
+        height: "100vh",
+        overflow: "hidden",
+      }}
     >
-  
-        <Box
-          sx={{
-            position: 'absolute',
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          "&::before": {
+            content: '""',
+            position: "absolute",
             top: 0,
             left: 0,
-            width: '100%',
-            height: '100%',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              backgroundImage: 'url(/images/fiu.jpg)', // Image path
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              opacity: 0.5, // Adjust the opacity of the background image
-              zIndex: -1, // Ensures the background is behind the content
-            },
-          }}
-        />
+            width: "100%",
+            height: "100%",
+            backgroundImage: "url(/images/fiu.jpg)", // Image path
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: 0.5, // Adjust the opacity of the background image
+            zIndex: -1, // Ensures the background is behind the content
+          },
+        }}
+      />
 
-<Toolbar // Taskbar with different pages
+      <Toolbar // Taskbar with different pages
         sx={{
           position: "fixed",
           width: "100%",
@@ -345,8 +348,7 @@ export default function Flashcard() {
               <ArrowForward />
             </IconButton>
           </Box>
-          <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
-          </Box>
+          <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}></Box>
         </Box>
       )}
     </Box>
