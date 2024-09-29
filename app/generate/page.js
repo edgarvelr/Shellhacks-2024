@@ -285,7 +285,7 @@ export default function Generate() {
       <Container maxWidth="md">
         <Box sx={{ my: 4, textAlign: "center" }}>
           <Typography
-            variant="h3"
+            variant="h4"
             component="h1"
             gutterBottom
             sx={{ color: "#ffffff" }}
