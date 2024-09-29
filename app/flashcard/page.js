@@ -68,18 +68,21 @@ export default function Flashcard() {
   };
 
   useEffect(() => {
-    async function getFlashcard() {
-      if (!search || !user) return;
-
-      const colRef = collection(doc(collection(db, "users"), user.id), search);
-      const docs = await getDocs(colRef);
-      const flashcards = [];
-      docs.forEach((doc) => {
-        flashcards.push({ id: doc.id, ...doc.data() });
-      });
-      setFlashcards(flashcards);
+    if (typeof window !== "undefined" && user) {
+      async function getFlashcard() {
+        if (!search) return;
+  
+        const colRef = collection(doc(collection(db, "users"), user.id), search);
+        const docs = await getDocs(colRef);
+        const flashcards = [];
+        docs.forEach((doc) => {
+          flashcards.push({ id: doc.id, ...doc.data() });
+        });
+        setFlashcards(flashcards);
+      }
+  
+      getFlashcard();
     }
-    getFlashcard();
   }, [search, user]);
 
   const handleCardClick = (id) => {

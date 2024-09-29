@@ -32,18 +32,24 @@ export default function Flashcards() {
   };
 
   useEffect(() => {
-    async function getFlashcards() {
-      if (!user) return;
-      const docRef = doc(collection(db, "users"), user.id);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const collections = docSnap.data().flashcards || [];
-        setFlashcards(collections);
-      } else {
-        await setDoc(docRef, { flashcards: [] });
+    if (typeof window !== "undefined" && user) {
+      async function getFlashcards() {
+        try {
+          const docRef = doc(collection(db, "users"), user.id);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const collections = docSnap.data().flashcards || [];
+            setFlashcards(collections);
+          } else {
+            await setDoc(docRef, { flashcards: [] });
+          }
+        } catch (error) {
+          console.error("Error fetching flashcards:", error);
+        }
       }
+  
+      getFlashcards();
     }
-    getFlashcards();
   }, [user]);
 
   const handleCardClick = (id) => {
